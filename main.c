@@ -43,7 +43,14 @@ int main( )
                 break;
         case 2: if (sol(a, b, c))
                 {
-                    printf("x1 = %f   x2 = %f", x1, x2);
+                    if (x1 == x2)
+                    {
+                        printf("x1 = x2 = %f", x1);
+                    }
+                    else
+                    {
+                        printf("x1 = %f   x2 = %f", x1, x2);
+                    }
                     break;
                 }
                 else
