@@ -37,24 +37,25 @@ int sol(double a,double b, double c)
     return 1;
 }
 
-void getcoef(double *a,double *b,double *c)
+void get_coef(double *a,double *b,double *c)
 {
-    if (3 != scanf("%lg%lg%lg", &a, &b, &c))
+    if (3 != scanf("%lg%lg%lg", a, b, c))
     {
         printf("Input error, please try again.\n");
         while(fgetc(stdin) != '\n')
         {
-            if (3 != scanf("%lg%lg%lg", &a, &b, &c))
+            if (3 != scanf("%lg%lg%lg", a, b, c))
             {
                 printf("Input error, please try again.\n");
             }
         }
     };
 }
+
 int main()
 {
     double a = 0, b = 0, c = 0;
-    getcoef(&a, &b, &c);
+    get_coef(&a, &b, &c);
 
     switch(check(a, b, c))
     {
@@ -64,7 +65,7 @@ int main()
                 break;
         case usual_square: if (sol(a, b, c))
                            {
-                                if (x1 == x2)
+                                if (x1 - x2 < 0.001)
                                 {
                                     printf("x1 = x2 = %f", x1);
                                 }
