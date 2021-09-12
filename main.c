@@ -2,19 +2,26 @@
 #include <math.h>
 #define  _CRT_SECURE_NO_WARNINGS
 
+enum roots
+{
+    linear_func = 0,
+    inf_numb_of_sol = 1,
+    usual_square = 2,
+};
+
 int check(double a,double b, double c)
 {
     if (0 == c && 0 == b && 0 == a)
     {
-        return 1;
+        return inf_numb_of_sol;
     }
     else if (0 == a)
     {
-        return 0;
+        return linear_func;
     }
     else
     {
-        return 2;
+        return usual_square;
     }
 }
 
@@ -30,34 +37,47 @@ int sol(double a,double b, double c)
     return 1;
 }
 
-int main( )
+void getcoef(double *a,double *b,double *c)
+{
+    if (3 != scanf("%lg%lg%lg", &a, &b, &c))
+    {
+        printf("Input error, please try again.\n");
+        while(fgetc(stdin) != '\n')
+        {
+            if (3 != scanf("%lg%lg%lg", &a, &b, &c))
+            {
+                printf("Input error, please try again.\n");
+            }
+        }
+    };
+}
+int main()
 {
     double a = 0, b = 0, c = 0;
-    scanf("%lg%lg%lg", &a, &b, &c);
+    getcoef(&a, &b, &c);
 
-    switch(check(a, b, c))//0: linear func; 1: inf numb of solutions; 2: usual square
+    switch(check(a, b, c))
     {
-        case 0: printf("x1 = %f", -c/b);
+        case linear_func: printf("x1 = %f", -c/b);
                 break;
-        case 1: printf("Any number is a solution.");
+        case inf_numb_of_sol: printf("Any number is a solution.");
                 break;
-        case 2: if (sol(a, b, c))
-                {
-                    if (x1 == x2)
-                    {
-                        printf("x1 = x2 = %f", x1);
-                    }
-                    else
-                    {
-                        printf("x1 = %f   x2 = %f", x1, x2);
-                    }
-                    break;
-                }
-                else
-                {
-                    printf("There are no real solutions.");
-                }
-                break;
+        case usual_square: if (sol(a, b, c))
+                           {
+                                if (x1 == x2)
+                                {
+                                    printf("x1 = x2 = %f", x1);
+                                }
+                                else
+                                {
+                                    printf("x1 = %f   x2 = %f", x1, x2);
+                                }
+                           }
+                           else
+                           {
+                               printf("There are no real solutions.");
+                           }
+                           break;
     }
     return 0;
 }
