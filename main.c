@@ -1,22 +1,24 @@
 /*!
+    \file
     This program solves square equations.
-    \param [in] (a) {senior coefficient}
-    \param [in] (b) {coefficient at x}
-    \param [in] (c) {free coefficient}
-    \param [out] (x1) {first root}
-    \param [out] (x2) {second root}
+    \param [in] (a) senior coefficient
+    \param [in] (b) coefficient at x
+    \param [in] (c) free coefficient
+    \param [out] (x1) first root
+    \param [out] (x2) second root
 
     \return {roots of equation}
 
-    \note {1. In case of a = b = c = 0 returns "Any number is a solution."
-           2. In case of a = 0 returns root of a linear equation.
-           3. In case of complex root returns "There are no real solutions."}
+    \note
+          1. In case of a = b = c = 0 returns "Any number is a solution."
+          2. In case of a = 0 returns root of a linear equation.
+          3. In case of complex root returns "There are no real solutions."
 */
 
 #include <stdio.h>
 #include <math.h>
 #define  _CRT_SECURE_NO_WARNINGS
-#define epsilon 1e-7///const for comparing double
+#define epsilon 1e-7///<const for comparing double
 
 enum roots
 {
@@ -30,15 +32,15 @@ int check(double a,double b, double c)
 {
     if (0 == c && 0 == b && 0 == a)
     {
-        return inf_numb_of_sol;///Бесконечное количество корней.
+        return inf_numb_of_sol;//Бесконечное количество корней.
     }
     else if (0 == a)
     {
-        return linear_func;///Один корень.
+        return linear_func;//Один корень.
     }
     else
     {
-        return usual_square;///До двух корней.
+        return usual_square;//До двух корней.
     }
 }
 
@@ -57,10 +59,10 @@ int solving(double a, double b, double c, double *x1, double *x2)
 ///Принимает с консоли три коэффицинта, проверяет, что это числа.
 int get_coef(double *a, double *b, double *c)
 {
-    if (3 != scanf("%lg%lg%lg", a, b, c))///Срабатывает, когда введено не число.
+    if (3 != scanf("%lg%lg%lg", a, b, c))//Срабатывает, когда введено не число.
     {
         printf("Input error, please try again.\n");
-        while(fgetc(stdin) != '\n')///Просит ввести, пока не будут введены три числа.
+        while(fgetc(stdin) != '\n')//Просит ввести, пока не будут введены три числа.
         {
             if (3 != scanf("%lg%lg%lg", a, b, c))
             {
@@ -86,11 +88,11 @@ int main()
                            {
                                 if (x1 - x2 < epsilon)
                                 {
-                                    printf("x1 = x2 = %f\n", x1);
+                                    printf("x1 = x2 = %lg\n", x1);
                                 }
                                 else
                                 {
-                                    printf("x1 = %f   x2 = %f\n", x1, x2);
+                                    printf("x1 = %lg   x2 = %lg\n", x1, x2);
                                 }
                            }
                            else
