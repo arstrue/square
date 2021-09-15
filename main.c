@@ -12,11 +12,12 @@
     \note
           1. In case of a = b = c = 0 returns "Any number is a solution."
           2. In case of a = 0 returns root of a linear equation.
-          3. In case of complex root returns "There are no real solutions."
+          3. In case of complex roots returns "There are no real solutions."
 */
 
 #include <stdio.h>
 #include <math.h>
+#include <assert.h>
 #define  _CRT_SECURE_NO_WARNINGS
 #define epsilon 1e-7///<const for comparing double
 
@@ -73,8 +74,38 @@ int get_coef(double *a, double *b, double *c)
     return 0;
 }
 
+///Проверяет несколько частных случаев решений квадратных уравнений.
+void Test_for_solving()
+{
+    double a = 1, b = 2, c = 1,x1 = 0,x2 = 0;
+    solving(a,b,c,&x1,&x2);
+    assert(x1 - (-1) < epsilon && x2 - (-1) < epsilon);//Ожидаемый корень -1.
+
+    a = 5, b = 7, c = 2,x1 = 0,x2 = 0;
+    solving(a,b,c,&x1,&x2);
+    assert(x1 - (-0.4) < epsilon && x2 - (-1) < epsilon);//Ожидаемые корни -1 и -0,4.
+
+    a = 5, b = -9, c = 3,x1 = 0,x2 = 0;
+    solving(a,b,c,&x1,&x2);
+    assert((fabs(x1 - 1.35825757) < epsilon) && (fabs(x2 - 0.441742431) < epsilon));
+    //Ожидаемые корни 1.35825757 и 0.441742431.
+}
+
+///Несколько частных случаев для предполагаемого количества корней.
+ void Tests_for_check()
+ {
+    assert(check(0,1,1) == linear_func);
+
+    assert(check(0,0,0) == inf_numb_of_sol);
+
+    assert(check(1,2,1) == usual_square);
+ }
+
 int main()
 {
+    Test_for_solving();
+    Tests_for_check();
+
     double a = 0, b = 0, c = 0,x1 = 0,x2 = 0;
     get_coef(&a, &b, &c);
 
@@ -86,7 +117,7 @@ int main()
                 break;
         case usual_square: if (solving(a, b, c, &x1, &x2))
                            {
-                                if (x1 - x2 < epsilon)
+                                if (fabs(x1 - x2) < epsilon)
                                 {
                                     printf("x1 = x2 = %lg\n", x1);
                                 }
